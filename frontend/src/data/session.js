@@ -28,6 +28,9 @@ export const session = reactive({
       session.login.reset()
       router.replace(data.default_route || '/')
     },
+    onError(error) {
+      throw error
+    },
   }),
   logout: createResource({
     url: 'logout',

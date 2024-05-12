@@ -1,37 +1,69 @@
 <template>
-  <div class="m-3 flex flex-row items-center justify-center">
-    <Card title="Login to your FrappeUI App!" class="w-full max-w-md mt-4">
-      <form class="flex flex-col space-y-2 w-full" @submit.prevent="submit">
-        <Input
-          required
-          name="email"
-          type="text"
-          placeholder="johndoe@email.com"
-          label="User ID"
-        />
-        <Input
-          required
-          name="password"
-          type="password"
-          placeholder="••••••"
-          label="Password"
-        />
-        <Button :loading="session.login.loading" variant="solid"
-          >Login</Button
-        >
+  <div class="min-h-screen flex items-center justify-center"
+    :class="{ 'bg-gray-800': isDarkMode, 'bg-gray-100': !isDarkMode }">
+    <div class="absolute top-4 right-4">
+      <Button icon="sun" @click="toggleTheme" />
+    </div>
+
+    <Card class="max-w-md w-full shadow-lg rounded-lg p-6"
+      :class="{ 'bg-gray-700': isDarkMode, 'bg-white': !isDarkMode }">
+      <div class="flex justify-center mb-6">
+        <img :src="'/src/assets/logo/logo.svg'" alt="Logo" class="h-20" />
+      </div>
+
+      <form class="flex flex-col space-y-4" @submit.prevent="submit">
+        <div class="p-2">
+          <FormControl type="text" size="sm" variant="subtle" placeholder="Enter your email" :disabled="false"
+            label="Email" v-model="email" :fill="isDarkMode" />
+        </div>
+
+        <div class="p-2">
+          <FormControl type="password" size="sm" variant="subtle" placeholder="Enter your password" :disabled="false"
+            label="Password" v-model="password" :fill="isDarkMode" />
+        </div>
+
+        <Button :variant="'solid'" theme="gray" size="md" label="Login" :loading="loading" :loadingText="'Logging in'"
+          :disabled="false" type="submit">
+          Login
+        </Button>
       </form>
     </Card>
+    <div class="fixed bottom-4 right-4">
+      <Toast v-if="showToast" :title="toastMessage" :timeout=5 @close="showToast = false" :class="{'bg-red-500': showToast}"/>
+    </div>
   </div>
 </template>
 
-<script lang="ts" setup>
-import { session } from '../data/session'
 
-function submit(e) {
-  let formData = new FormData(e.target)
-  session.login.submit({
-    email: formData.get('email'),
-    password: formData.get('password'),
-  })
-}
+<script lang="ts" setup>
+import { ref } from 'vue';
+import { session } from '../data/session';
+import { Button, Card, FormControl, Toast } from 'frappe-ui';
+
+const email = ref('');
+const password = ref('');
+const isDarkMode = ref(false);
+const showToast = ref(false);
+const toastMessage = ref('');
+const loading = ref(false);
+
+const toggleTheme = () => {
+  isDarkMode.value = !isDarkMode.value;
+};
+
+const submit = async () => {
+  loading.value = true;
+  try {
+    await session.login.submit({
+      email: email.value,
+      password: password.value,
+    });
+  } catch (error) {
+    console.log("error that I caught: ", error)
+    toastMessage.value = 'Invalid email or password';
+    showToast.value = true;
+  } finally {
+    loading.value = false;
+  }
+};
 </script>
