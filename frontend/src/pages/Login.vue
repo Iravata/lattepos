@@ -1,6 +1,7 @@
 <template>
   <div class="min-h-screen flex items-center justify-center"
     :class="{ 'bg-gray-800': isDarkMode, 'bg-gray-100': !isDarkMode }">
+    <DarkModeToggle />
     <div class="absolute top-4 right-4">
       <Button icon="sun" @click="toggleTheme" />
     </div>
@@ -34,22 +35,21 @@
   </div>
 </template>
 
-
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { session } from '../data/session';
 import { Button, Card, FormControl, Toast } from 'frappe-ui';
+import DarkModeToggle from '../components/DarkModeToggle.vue';
+import { useDarkMode } from '../utils/useDarkMode';
+
+
+const { isDarkMode, toggleTheme } = useDarkMode();
 
 const email = ref('');
 const password = ref('');
-const isDarkMode = ref(false);
 const showToast = ref(false);
 const toastMessage = ref('');
 const loading = ref(false);
-
-const toggleTheme = () => {
-  isDarkMode.value = !isDarkMode.value;
-};
 
 const submit = async () => {
   loading.value = true;
