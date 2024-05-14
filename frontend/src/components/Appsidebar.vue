@@ -5,6 +5,11 @@
 	  @click="toggleSidebar"
 	>
 	  <div class="flex flex-col overflow-hidden flex-grow" :class="isSidebarCollapsed ? 'items-center' : ''">
+		<!-- Logo Section -->
+		<div class="flex items-center justify-center py-4">
+		  <img :src="logo" alt="Logo" class="h-10" />
+		</div>
+		<!-- Sidebar Links -->
 		<div class="flex flex-col overflow-y-auto">
 		  <SidebarLink
 			v-for="link in links"
@@ -28,6 +33,7 @@
   import SidebarLink from './SidebarLink.vue'
   import UserDropdown from './UserDropdown.vue'
   import { getSidebarLinks } from '../utils/index.js'
+  import logo from '@/assets/logo/logo.svg'
   
   const isSidebarCollapsed = ref(false)
   const links = getSidebarLinks()
@@ -37,7 +43,4 @@
   }
   </script>
   
-  <style scoped>
-  /* Add any additional styles here */
-  </style>
   
