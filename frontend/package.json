@@ -9,17 +9,17 @@
     "copy-html-entry": "cp ../lattepos/public/frontend/index.html ../lattepos/www/frontend.html"
   },
   "dependencies": {
-    "feather-icons": "^4.28.0",
+    "feather-icons": "^4.29.2",
     "frappe-ui": "^0.1.54",
     "lucide-vue-next": "^0.378.0",
-    "vue": "^3.2.25",
-    "vue-router": "^4.0.12"
+    "vue": "^3.4.27",
+    "vue-router": "^4.3.2"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^2.0.0",
+    "@vitejs/plugin-vue": "^5.0.4",
     "autoprefixer": "^10.4.2",
     "postcss": "^8.4.5",
-    "tailwindcss": "^3.0.15",
-    "vite": "^2.7.2"
+    "tailwindcss": "^3.4.3",
+    "vite": "^5.2.11"
   }
 }

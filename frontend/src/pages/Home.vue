@@ -26,12 +26,12 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue'
 import { Dialog } from 'frappe-ui'
-import { createResource } from 'frappe-ui'
-import { session } from '../data/session'
-import AppSidebar from '@/components/AppSidebar.vue'
+import { createResource } from 'frappe-ui';
+import { session } from '../data/session';
+import AppSidebar from '@/components/Appsidebar.vue';
 import DarkModeToggle from '@/components/DarkModeToggle.vue'
 import { useDarkMode } from '../utils/useDarkMode'
 
