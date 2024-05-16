@@ -2,13 +2,13 @@
     <div class="flex h-screen" :class="{ 'bg-gray-800 text-white': isDarkMode, 'bg-gray-100 text-black': !isDarkMode }">
       <AppSidebar />
       <DarkModeToggle />
-      <div class="flex-1 max-w-3xl py-12 mx-auto relative">
+      <div class="flex-1 max-w-5xl py-12 mx-auto relative">
         <h2 class="font-bold text-lg mb-4">
           Products
         </h2>
         <div>
           <ListView
-            class="h-[250px]"
+            class="h-[700px]"
             :columns="columns"
             :rows="rows"
             :options="options"
@@ -16,40 +16,44 @@
           />
         </div>
       </div>
+      <ProductDialog :showDialog="showDialog" @update:showDialog="showDialog = $event" />
     </div>
-</template>
+  </template>
   
   <script lang="ts" setup>
-import { h } from 'vue';
+  import { h } from 'vue';
   import AppSidebar from '../components/Appsidebar.vue';
   import DarkModeToggle from '../components/DarkModeToggle.vue';
   import { useDarkMode } from '../utils/useDarkMode';
-  import { ListView, Avatar } from 'frappe-ui';
+  import { ListView, Avatar, Button } from 'frappe-ui';
+  import ProductDialog from '../components/ProductDialog.vue';
+  import { useProductDialog } from '../utils/useProductDialog';
   
   const { isDarkMode } = useDarkMode();
+  const { showDialog } = useProductDialog();
   
   const columns = [
     {
-      label: 'Name',
-      key: 'name',
+      label: 'Product Photo',
+      key: 'product_photo',
       width: 3,
       getLabel: ({ row }) => row.name,
       prefix: ({ row }) => {
         return h(Avatar, {
-          shape: "circle",
-          image: row.user_image,
-          size: "sm"
+          shape: 'circle',
+          image: row.product_photo,
+          size: 'sm'
         });
       },
     },
     {
-      label: 'Email',
-      key: 'email',
+      label: 'Product Name',
+      key: 'product_name',
       width: '200px',
     },
     {
-      label: 'Role',
-      key: 'role',
+      label: 'Product Type',
+      key: 'product_type',
     },
     {
       label: 'Status',
@@ -57,36 +61,19 @@ import { h } from 'vue';
     },
   ];
   
-  const rows = [
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john@doe.com',
-      status: 'Active',
-      role: 'Developer',
-      user_image: 'https://avatars.githubusercontent.com/u/499550',
-    },
-    {
-      id: 2,
-      name: 'Jane Doe',
-      email: 'jane@doe.com',
-      status: 'Inactive',
-      role: 'HR',
-      user_image: 'https://avatars.githubusercontent.com/u/499120',
-    },
-  ];
+  const rows = [];
   
   const options = {
     selectable: true,
     showTooltip: true,
     resizeColumn: true,
     emptyState: {
-      title: 'No records found',
+      title: 'No Products found',
       description: 'Create a new record to get started',
       button: {
-        label: 'New Record',
+        label: 'New Products',
         variant: 'solid',
-        onClick: () => console.log("New Record"),
+        onClick: () => showDialog.value = true,
       },
     },
   };

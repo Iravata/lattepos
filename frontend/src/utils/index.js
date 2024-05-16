@@ -2,6 +2,7 @@ import {
 	Home,
 	PackageSearch
   } from 'lucide-vue-next'
+
   
   export function getSidebarLinks() {
 	return [
@@ -18,4 +19,4 @@ import {
 	  // Add other links here
 	];
   }
-  
+
