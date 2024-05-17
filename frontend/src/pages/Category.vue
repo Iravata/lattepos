@@ -3,9 +3,18 @@
       <AppSidebar />
       <DarkModeToggle />
       <div class="flex-1 max-w-5xl py-12 mx-auto relative">
-        <h2 class="font-bold text-lg mb-4">
-          Categories
-        </h2>
+        <div class="flex items-center mb-4">
+          <h2 class="font-bold text-lg">
+            Categories
+          </h2>
+          <button
+            v-if="rows.length > 0"
+            @click="showDialog = true"
+            class="btn btn-primary flex items-center ml-2"
+          >
+            <CirclePlus class="mr-1" width="20" height="20"/>
+          </button>
+        </div>
         <div>
           <ListView
             class="h-[700px]"
@@ -21,15 +30,26 @@
   </template>
   
   <script lang="ts" setup>
+  import { ref, watch } from 'vue';
+  import { CirclePlus } from 'lucide-vue-next';
   import AppSidebar from '../components/Appsidebar.vue';
   import DarkModeToggle from '../components/DarkModeToggle.vue';
   import { useDarkMode } from '../utils/useDarkMode';
-  import { ListView } from 'frappe-ui';
   import CategoryDialog from '../components/CategoryDialog.vue';
   import { useCategoryDialog } from '../utils/useCategoryDialog';
+  import { posCategory, getCategories } from '../utils';
+  import { ListView } from 'frappe-ui';
   
   const { isDarkMode } = useDarkMode();
   const { showDialog } = useCategoryDialog();
+  const rows = ref([]);
+  posCategory.fetch();
+  
+  watch(() => posCategory.data, (newData) => {
+    if (newData && Array.isArray(newData)) {
+      rows.value = getCategories(newData);
+    }
+  });
   
   const columns = [
     {
@@ -42,8 +62,6 @@
       key: 'category_description',
     },
   ];
-  
-  const rows = [];
   
   const options = {
     selectable: true,

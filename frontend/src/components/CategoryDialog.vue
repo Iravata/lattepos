@@ -43,24 +43,25 @@
   <script lang="ts" setup>
   import { ref, defineProps, defineEmits } from 'vue';
   import { Dialog, Button, FormControl } from 'frappe-ui';
+  import { posCategory } from '../utils';
   
   const props = defineProps<{ showDialog: boolean }>();
   const emit = defineEmits(['update:showDialog']);
   
   const categoryName = ref('');
   const description = ref('');
-  const categoryIcon = ref<File | null>(null);
-  
-  const handleFileUpload = (file: File) => {
-    categoryIcon.value = file;
-  };
   
   const saveCategory = () => {
-    // Save category logic here
+    
+
+    posCategory.insert.submit({
+        category_name: categoryName.value,
+        category_description: description.value,
+    })
+
     console.log({
       categoryName: categoryName.value,
       description: description.value,
-      categoryIcon: categoryIcon.value,
     });
     emit('update:showDialog', false);
     resetForm();
@@ -74,7 +75,6 @@
   const resetForm = () => {
     categoryName.value = '';
     description.value = '';
-    categoryIcon.value = null;
   };
   
   const updateDialogVisibility = (value: boolean) => {

@@ -24,7 +24,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-17 18:00:08.818130",
+ "modified": "2024-05-17 23:59:05.375188",
  "modified_by": "Administrator",
  "module": "Lattepos",
  "name": "Category",
@@ -43,7 +43,9 @@
    "write": 1
   }
  ],
+ "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "category_name"
 }
