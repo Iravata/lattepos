@@ -5,7 +5,8 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "category_name"
+  "category_name",
+  "category_description"
  ],
  "fields": [
   {
@@ -14,11 +15,16 @@
    "in_list_view": 1,
    "label": "Category Name",
    "reqd": 1
+  },
+  {
+   "fieldname": "category_description",
+   "fieldtype": "Small Text",
+   "label": "Category Description"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-11 19:00:33.638050",
+ "modified": "2024-05-17 18:00:08.818130",
  "modified_by": "Administrator",
  "module": "Lattepos",
  "name": "Category",

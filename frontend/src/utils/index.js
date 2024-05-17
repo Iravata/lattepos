@@ -1,6 +1,7 @@
 import {
 	Home,
-	PackageSearch
+	PackageSearch,
+	Layers2
   } from 'lucide-vue-next'
 
   
@@ -10,6 +11,11 @@ import {
 		label: 'Home',
 		to: '/',
 		icon: Home,
+	  },
+	  {
+		label: 'Cateogories',
+		to: '/category',
+		icon: Layers2,
 	  },
 	  {
 		label: 'Products',
