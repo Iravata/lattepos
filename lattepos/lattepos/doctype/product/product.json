@@ -1,16 +1,21 @@
 {
  "actions": [],
- "allow_rename": 1,
+ "autoname": "format:PROD-{###}",
  "creation": "2024-05-11 19:08:15.158252",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "product_details_section",
   "image",
   "product_name",
   "column_break_xdev",
   "category",
   "price",
-  "description"
+  "description",
+  "section_break_mxwg",
+  "product_variety",
+  "modifiers_section",
+  "product_modifier"
  ],
  "fields": [
   {
@@ -46,17 +51,47 @@
   },
   {
    "fieldname": "price",
-   "fieldtype": "Float",
+   "fieldtype": "Currency",
    "label": "Price",
-   "non_negative": 1
+   "non_negative": 1,
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_mxwg",
+   "fieldtype": "Section Break",
+   "label": "Variety Details"
+  },
+  {
+   "fieldname": "product_variety",
+   "fieldtype": "Table",
+   "label": "Product Variety",
+   "options": "Variety"
+  },
+  {
+   "fieldname": "product_details_section",
+   "fieldtype": "Section Break",
+   "label": "Product Details"
+  },
+  {
+   "fieldname": "modifiers_section",
+   "fieldtype": "Section Break",
+   "label": "Modifiers"
+  },
+  {
+   "fieldname": "product_modifier",
+   "fieldtype": "Table",
+   "label": "Product Modifier",
+   "options": "Modifier"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-11 19:21:31.432496",
+ "modified": "2024-05-19 21:43:37.394100",
  "modified_by": "Administrator",
  "module": "Lattepos",
  "name": "Product",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
@@ -72,7 +107,9 @@
    "write": 1
   }
  ],
+ "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "product_name"
 }
