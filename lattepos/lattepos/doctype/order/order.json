@@ -55,13 +55,17 @@
   },
   {
    "fieldname": "order_total",
-   "fieldtype": "Float",
-   "label": "Order Total"
+   "fieldtype": "Currency",
+   "label": "Order Total",
+   "non_negative": 1,
+   "reqd": 1
   },
   {
    "fieldname": "paid_amount",
-   "fieldtype": "Float",
-   "label": "Paid Amount"
+   "fieldtype": "Currency",
+   "label": "Paid Amount",
+   "non_negative": 1,
+   "reqd": 1
   },
   {
    "fieldname": "column_break_mevh",
@@ -79,9 +83,12 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "0",
    "fieldname": "tips",
-   "fieldtype": "Float",
-   "label": "Tips"
+   "fieldtype": "Currency",
+   "label": "Tips",
+   "non_negative": 1,
+   "reqd": 1
   },
   {
    "fieldname": "device_id",
@@ -105,12 +112,12 @@
    "fieldname": "table_mwid",
    "fieldtype": "Table",
    "label": "Product Details",
-   "options": "OrderProductList"
+   "options": "Order Product List"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-25 13:21:00.229633",
+ "modified": "2024-05-25 20:06:41.337310",
  "modified_by": "Administrator",
  "module": "Lattepos",
  "name": "Order",
