@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:{name1}-{###}",
  "creation": "2024-05-26 03:25:08.438462",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -52,10 +53,11 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-26 03:28:27.707509",
+ "modified": "2024-05-26 04:02:29.479831",
  "modified_by": "Administrator",
  "module": "Lattepos",
  "name": "Payment Processor",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

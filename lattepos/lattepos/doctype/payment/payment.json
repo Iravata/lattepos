@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:PAY-{###}",
  "creation": "2024-05-26 03:28:50.936490",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -67,10 +68,11 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-26 03:49:26.393639",
+ "modified": "2024-05-26 04:09:03.591585",
  "modified_by": "Administrator",
  "module": "Lattepos",
  "name": "Payment",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
