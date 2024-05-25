@@ -1,0 +1,78 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-05-25 12:47:09.339275",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ordered_product_details_section",
+  "product_name",
+  "product_variety",
+  "product_modifier",
+  "column_break_jxvh",
+  "quantity",
+  "total_price"
+ ],
+ "fields": [
+  {
+   "fieldname": "ordered_product_details_section",
+   "fieldtype": "Section Break",
+   "label": "Ordered Product Details"
+  },
+  {
+   "fieldname": "product_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Product Name",
+   "options": "Product",
+   "reqd": 1
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Quantity",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "total_price",
+   "fieldtype": "Float",
+   "label": "Total Price",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "product_variety",
+   "fieldtype": "Link",
+   "label": "Product Variety",
+   "options": "Variety",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "product_name.product_name",
+   "fieldname": "product_modifier",
+   "fieldtype": "Link",
+   "label": "Product Modifier",
+   "options": "Modifier",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_jxvh",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-05-25 13:58:21.852738",
+ "modified_by": "Administrator",
+ "module": "Lattepos",
+ "name": "OrderProductList",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

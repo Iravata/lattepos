@@ -1,0 +1,138 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:ORD-{###}",
+ "creation": "2024-05-25 11:58:30.782441",
+ "description": "Order ID",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "order_details_section",
+  "order_id",
+  "order_status",
+  "order_type",
+  "device_id",
+  "column_break_xwfp",
+  "order_notes",
+  "guest_count",
+  "table",
+  "order_product_details_section",
+  "table_mwid",
+  "column_break_mevh",
+  "order_total",
+  "paid_amount",
+  "tips"
+ ],
+ "fields": [
+  {
+   "fieldname": "order_details_section",
+   "fieldtype": "Section Break",
+   "label": "Order Details"
+  },
+  {
+   "fieldname": "order_id",
+   "fieldtype": "Data",
+   "label": "Order ID",
+   "search_index": 1
+  },
+  {
+   "fieldname": "order_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Order status",
+   "options": "ACCEPTED\nCOMPLETED",
+   "reqd": 1
+  },
+  {
+   "fieldname": "order_notes",
+   "fieldtype": "Small Text",
+   "label": "Order Notes"
+  },
+  {
+   "fieldname": "guest_count",
+   "fieldtype": "Int",
+   "label": "Guest Count"
+  },
+  {
+   "fieldname": "order_total",
+   "fieldtype": "Float",
+   "label": "Order Total"
+  },
+  {
+   "fieldname": "paid_amount",
+   "fieldtype": "Float",
+   "label": "Paid Amount"
+  },
+  {
+   "fieldname": "column_break_mevh",
+   "fieldtype": "Section Break",
+   "label": "Order Finance"
+  },
+  {
+   "fieldname": "order_type",
+   "fieldtype": "Select",
+   "label": "Order Type",
+   "options": "TAKE-AWAY\nDINE-IN\nONLINE"
+  },
+  {
+   "fieldname": "column_break_xwfp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tips",
+   "fieldtype": "Float",
+   "label": "Tips"
+  },
+  {
+   "fieldname": "device_id",
+   "fieldtype": "Link",
+   "label": "Device ID",
+   "options": "Device"
+  },
+  {
+   "fieldname": "order_product_details_section",
+   "fieldtype": "Section Break",
+   "label": "Order Product Details"
+  },
+  {
+   "fieldname": "table",
+   "fieldtype": "Link",
+   "label": "Table",
+   "options": "Table"
+  },
+  {
+   "columns": 10,
+   "fieldname": "table_mwid",
+   "fieldtype": "Table",
+   "label": "Product Details",
+   "options": "OrderProductList"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-05-25 13:21:00.229633",
+ "modified_by": "Administrator",
+ "module": "Lattepos",
+ "name": "Order",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "show_title_field_in_link": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "order_id"
+}
