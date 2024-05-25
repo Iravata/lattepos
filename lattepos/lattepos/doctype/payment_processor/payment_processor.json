@@ -1,0 +1,77 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-05-26 03:25:08.438462",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "processor_details_section",
+  "name1",
+  "active",
+  "column_break_bgiq",
+  "description",
+  "api"
+ ],
+ "fields": [
+  {
+   "fieldname": "processor_details_section",
+   "fieldtype": "Section Break",
+   "label": "Processor Details"
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Name",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "active",
+   "fieldtype": "Check",
+   "label": "Active"
+  },
+  {
+   "fieldname": "column_break_bgiq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Description",
+   "reqd": 1
+  },
+  {
+   "fieldname": "api",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "API",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-05-26 03:28:27.707509",
+ "modified_by": "Administrator",
+ "module": "Lattepos",
+ "name": "Payment Processor",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

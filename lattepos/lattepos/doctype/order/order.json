@@ -20,8 +20,9 @@
   "table_mwid",
   "column_break_mevh",
   "order_total",
-  "paid_amount",
-  "tips"
+  "discountsurcharge",
+  "column_break_tjoj",
+  "final_total"
  ],
  "fields": [
   {
@@ -61,13 +62,6 @@
    "reqd": 1
   },
   {
-   "fieldname": "paid_amount",
-   "fieldtype": "Currency",
-   "label": "Paid Amount",
-   "non_negative": 1,
-   "reqd": 1
-  },
-  {
    "fieldname": "column_break_mevh",
    "fieldtype": "Section Break",
    "label": "Order Finance"
@@ -81,14 +75,6 @@
   {
    "fieldname": "column_break_xwfp",
    "fieldtype": "Column Break"
-  },
-  {
-   "default": "0",
-   "fieldname": "tips",
-   "fieldtype": "Currency",
-   "label": "Tips",
-   "non_negative": 1,
-   "reqd": 1
   },
   {
    "fieldname": "device_id",
@@ -113,11 +99,27 @@
    "fieldtype": "Table",
    "label": "Product Details",
    "options": "Order Product List"
+  },
+  {
+   "fieldname": "discountsurcharge",
+   "fieldtype": "Link",
+   "label": "Discount/Surcharge",
+   "options": "Pricing Adjustment"
+  },
+  {
+   "fieldname": "column_break_tjoj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "final_total",
+   "fieldtype": "Data",
+   "label": "Final Total",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-25 20:06:41.337310",
+ "modified": "2024-05-26 03:46:42.945886",
  "modified_by": "Administrator",
  "module": "Lattepos",
  "name": "Order",
