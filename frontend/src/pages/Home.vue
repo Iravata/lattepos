@@ -1,50 +1,78 @@
 <template>
-  <div class="flex h-screen" :class="{ 'bg-gray-800 text-white': isDarkMode, 'bg-gray-100 text-black': !isDarkMode }">
-    <DarkModeToggle />
-    <AppSidebar />
-    <div class="flex-1 max-w-3xl py-12 mx-auto relative">
-      <h2 class="font-bold text-lg mb-4">
-        Welcome {{ session.user }}!
-      </h2>
-
-      <Button theme="gray" variant="solid" icon-left="code" @click="ping.fetch" :loading="ping.loading">
-        Click to send 'ping' request
-      </Button>
-      <div>
-        {{ ping.data }}
-      </div>
-      <pre>{{ ping }}</pre>
-
-      <div class="flex flex-row space-x-2 mt-4">
-        <Button @click="showDialog = true">Open Dialog</Button>
-        <Button @click="session.logout.submit()">Logout</Button>
-      </div>
-
-      <!-- Dialog -->
-      <Dialog title="Title" v-model="showDialog"> Dialog content </Dialog>
+  <div class="flex h-screen bg-base-200">
+    <!-- Sidebar -->
+    <Sidebar 
+      :activePage="currentPage"/>
+    
+    <!-- Main content -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="bg-base-100 shadow-md">
+        <div class="flex items-center justify-between p-4">
+            <h1 class="text-xl font-bold ml-4">Home</h1>
+          <div class="flex items-center">
+            <ThemeToggle />
+          </div>
+        </div>
+      </header>
+      
+      <main class="flex-1 overflow-x-hidden overflow-y-auto bg-base-200 p-4">
+        <h2 class="text-2xl font-bold mb-4">Welcome {{session.user}}</h2>
+        <h3 class="text-xl mb-4">The LattePos Platform</h3>
+        <div class="space-y-4">
+          <div v-for="(item, index) in integrations" :key="index" class="card lg:card-side bg-base-100 shadow-xl">
+            <div class="card-body">
+              <h2 class="card-title">{{ item.title }}</h2>
+              <p>{{ item.description }}</p>
+              <div class="card-actions justify-start">
+                <button class="btn btn-primary">Launch</button>
+              </div>
+            </div>
+            <figure><img :src="item.image" :alt="item.title" class="w-full h-48 object-cover" /></figure>
+          </div>
+        </div>
+      </main>
     </div>
   </div>
 </template>
 
-<script lang="ts" setup>
-import { ref } from 'vue'
-import { Dialog } from 'frappe-ui'
-import { createResource } from 'frappe-ui';
+<script>
+import { ref } from 'vue';
+import ThemeToggle from '../components/Icons/ThemeToggle.vue';
+import Sidebar from '../components/Sidebar.vue';
 import { session } from '../data/session';
-import AppSidebar from '../components/Appsidebar.vue';
-import DarkModeToggle from '../components/DarkModeToggle.vue'
-import { useDarkMode } from '../utils/useDarkMode'
 
-const { isDarkMode } = useDarkMode();
+export default {
+  name: 'HomePage',
+  components: {
+    ThemeToggle,
+    Sidebar
+  },
+  setup() {
+    const currentPage = ref('home');
+    const integrations = ref([
+    { 
+        title: 'POS', 
+        description: 'An easy to use point of sale with everything a hospitality business needs to grow.',
+        image: '/path/to/pos-image.jpg'
+      },
+      { 
+        title: 'Insights', 
+        description: 'Stay miles ahead with powerful, effortless reporting for your entire operation.',
+        image: '/path/to/insights-image.jpg'
+      },
+      { 
+        title: 'Purchase', 
+        description: 'Bring simplicity and efficiency to the way you order stock and manage your purchasing.',
+        image: '/path/to/purchase-image.jpg'
+      },
+    ]);
 
-const ping = createResource({
-  url: 'ping',
-  auto: true,
-})
 
-const showDialog = ref(false)
+    return {
+      currentPage,
+      integrations,
+      session
+    };
+  }
+}
 </script>
-
-<style scoped>
-/* Add any additional styles here */
-</style>

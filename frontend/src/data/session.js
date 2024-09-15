@@ -1,7 +1,6 @@
 import router from '@/router'
 import { computed, reactive } from 'vue'
 import { createResource } from 'frappe-ui'
-
 import { userResource } from './user'
 
 export function sessionUser() {
@@ -26,7 +25,7 @@ export const session = reactive({
       userResource.reload()
       session.user = sessionUser()
       session.login.reset()
-      router.replace(data.default_route || '/')
+      router.replace(data.default_route || '/home')
     },
     onError(error) {
       throw error

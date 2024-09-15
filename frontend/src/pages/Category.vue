@@ -15,7 +15,7 @@
             <CirclePlus class="mr-1" width="20" height="20"/>
           </button>
         </div>
-        <div>
+        <div v-if="posCategory.data?.length">
           <ListView
             class="h-[700px]"
             :columns="columns"
@@ -23,6 +23,28 @@
             :options="options"
             row-key="id"
           />
+          <ListHeader class="mb-2 grid items-center space-x-4 rounded bg-gray-100 p-2">
+            <ListHeaderItem :item="item" v-for="item in columns" :key="item.key">
+              <template #prefix="{ item }">
+							<component
+								v-if="item.icon"
+								:is="item.icon"
+								class="h-4 w-4 stroke-1.5 ml-4"
+							/>
+						</template>
+            </ListHeaderItem>
+          </ListHeader>
+          <ListRows>
+					<ListRow :row="row" v-for="row in posCategory.data">
+						<template #default="{ column, item }">
+							<ListRowItem :item="row[column.key]" :align="column.align">
+								<div>
+									{{ row[column.key] }}
+								</div>
+							</ListRowItem>
+						</template>
+					</ListRow>
+				</ListRows>
         </div>
       </div>
       <CategoryDialog :showDialog="showDialog" @update:showDialog="showDialog = $event" />
@@ -32,13 +54,13 @@
   <script lang="ts" setup>
   import { ref, watch } from 'vue';
   import { CirclePlus } from 'lucide-vue-next';
-  import AppSidebar from '../components/Appsidebar.vue';
-  import DarkModeToggle from '../components/DarkModeToggle.vue';
+  import AppSidebar from '../components/Sidebar.vue';
+  import DarkModeToggle from '../components/Icons/ThemeToggle.vue';
   import { useDarkMode } from '../utils/useDarkMode';
   import CategoryDialog from '../components/CategoryDialog.vue';
   import { useCategoryDialog } from '../utils/useCategoryDialog';
   import { posCategory, getCategories } from '../utils';
-  import { ListView } from 'frappe-ui';
+  import { ListView, ListHeader } from 'frappe-ui';
   
   const { isDarkMode } = useDarkMode();
   const { showDialog } = useCategoryDialog();

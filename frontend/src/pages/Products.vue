@@ -1,81 +1,171 @@
 <template>
-    <div class="flex h-screen" :class="{ 'bg-gray-800 text-white': isDarkMode, 'bg-gray-100 text-black': !isDarkMode }">
-      <AppSidebar />
-      <DarkModeToggle />
-      <div class="flex-1 max-w-5xl py-12 mx-auto relative">
-        <h2 class="font-bold text-lg mb-4">
-          Products
-        </h2>
-        <div>
-          <ListView
-            class="h-[700px]"
-            :columns="columns"
-            :rows="rows"
-            :options="options"
-            row-key="id"
-          />
+  <div class="flex h-screen bg-base-200">
+    <!-- Sidebar -->
+    <Sidebar :activePage="currentPage"/>
+    
+    <!-- Main content -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="bg-base-100 shadow-md">
+        <div class="flex items-center justify-between p-4">
+          <div class="flex items-center">
+            <h1 class="text-xl font-bold ml-4">Products</h1>
+            <button class="btn btn-circle btn-sm ml-2" @click="openModal">
+              <AddMoreIcon />
+            </button>
+          </div>
+          <div class="flex items-center">
+            <button v-if="selectedProducts.length === 1" class="btn btn-ghost btn-circle mr-2">
+              <EditIcon />
+            </button>
+            <button v-if="selectedProducts.length > 0" class="btn btn-ghost btn-circle mr-2" @click="deleteSelectedProducts">
+              <DeleteIcon />
+            </button>
+            <ThemeToggle />
+          </div>
         </div>
-      </div>
-      <ProductDialog :showDialog="showDialog" @update:showDialog="showDialog = $event" />
+      </header>
+      
+      <main class="flex-1 overflow-x-hidden overflow-y-auto bg-base-200 p-4">
+        <div class="overflow-x-auto">
+          <table class="table w-full border-collapse">
+            <thead>
+              <tr class="bg-base-300">
+                <th class="w-12 text-xl font-extrabold border p-3 bg-base-300 text-base-content">
+                  <input type="checkbox" class="checkbox" @change="toggleAllSelection">
+                </th>
+                <th class="w-24 text-xl font-extrabold border p-3 bg-base-300 text-base-content">Photo</th>
+                <th class="w-1/3 text-xl font-extrabold border p-3 bg-base-300 text-base-content">Name</th>
+                <th class="w-1/4 text-xl font-extrabold border p-3 bg-base-300 text-base-content">Type</th>
+                <th class="w-1/6 text-xl font-extrabold border p-3 bg-base-300 text-base-content">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="product in products.data" class="border-b">
+                <td class="w-12 border p-3">
+                  <input type="checkbox" class="checkbox" v-model="selectedProducts" :value="product.product_name">
+                </td>
+                <td class="w-24 border p-3">
+                  <div class="avatar">
+                    <div class="mask mask-squircle w-12 h-12">
+                      <img :src="product.image" :alt="product.product_name" />
+                    </div>
+                  </div>
+                </td>
+                <td class="w-1/3 border p-3">{{ product.product_name }}</td>
+                <td class="w-1/4 border p-3">{{ product.category }}</td>
+                <td class="w-1/6 border p-3">{{ product.price }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
     </div>
-  </template>
-  
-  <script lang="ts" setup>
-  import { h } from 'vue';
-  import AppSidebar from '../components/Appsidebar.vue';
-  import DarkModeToggle from '../components/DarkModeToggle.vue';
-  import { useDarkMode } from '../utils/useDarkMode';
-  import { ListView, Avatar, Button } from 'frappe-ui';
-  import ProductDialog from '../components/ProductDialog.vue';
-  import { useProductDialog } from '../utils/useProductDialog';
-  
-  const { isDarkMode } = useDarkMode();
-  const { showDialog } = useProductDialog();
-  
-  const columns = [
-    {
-      label: 'Product Photo',
-      key: 'product_photo',
-      width: 3,
-      getLabel: ({ row }) => row.name,
-      prefix: ({ row }) => {
-        return h(Avatar, {
-          shape: 'circle',
-          image: row.product_photo,
-          size: 'sm'
-        });
-      },
-    },
-    {
-      label: 'Product Name',
-      key: 'product_name',
-      width: '200px',
-    },
-    {
-      label: 'Product Type',
-      key: 'product_type',
-    },
-    {
-      label: 'Status',
-      key: 'status',
-    },
-  ];
-  
-  const rows = [];
-  
-  const options = {
-    selectable: true,
-    showTooltip: true,
-    resizeColumn: true,
-    emptyState: {
-      title: 'No Products found',
-      description: 'Create a new record to get started',
-      button: {
-        label: 'New Products',
-        variant: 'solid',
-        onClick: () => showDialog.value = true,
-      },
-    },
-  };
-  </script>
-  
+
+    <!-- Product Modal -->
+    <ProductModal :isOpen="isModalOpen" @close="closeModal" />
+
+    <!-- Delete Confirmation Modal -->
+    <DeleteConfirmationModal 
+      :isOpen="isDeleteModalOpen"
+      @confirm="confirmDelete"
+      @cancel="cancelDelete"
+    />
+  </div>
+</template>
+
+<script>
+import { ref } from 'vue';
+import ThemeToggle from '../components/Icons/ThemeToggle.vue';
+import AddMoreIcon from '../components/Icons/AddMore.vue';
+import EditIcon from '../components/Icons/Edit.vue';
+import DeleteIcon from '../components/Icons/Delete.vue';
+import Sidebar from '../components/Sidebar.vue';
+import ProductModal from '../components/NewProductModal.vue';
+import { createListResource } from 'frappe-ui';
+import DeleteConfirmationModal from '../components/DeleteConfirmationModal.vue';
+
+
+export default {
+  name: 'ProductsPage',
+  components: {
+    ThemeToggle,
+    Sidebar,
+    ProductModal,
+    AddMoreIcon,
+    EditIcon,
+    DeleteIcon,
+    DeleteConfirmationModal,
+  },
+  setup() {
+    const currentPage = ref('products');
+    const isModalOpen = ref(false);
+    const selectedProducts = ref([]);
+    const isDeleteModalOpen = ref(false);
+    const productsToDelete = ref([]);
+
+    const deleteSelectedProducts = () => {
+      productsToDelete.value = selectedProducts.value;
+      isDeleteModalOpen.value = true;
+    };
+
+    const confirmDelete = () => {
+      for (const productName of selectedProducts.value) {
+          const product = products.data.find(product => product.product_name === productName);
+          if (product) {
+            console.log('Deleting product:', product.product_name);
+            products.delete.submit(product.product_name);
+            products.fetch();
+          }
+        }
+      products.fetch();
+      isDeleteModalOpen.value = false;
+      selectedProducts.value = [];
+    };
+
+    const cancelDelete = () => {
+      isDeleteModalOpen.value = false;
+      productsToDelete.value = [];
+    };
+
+    const products = createListResource({
+      doctype: 'Product',
+      fields: ['image', 'product_name', 'category', 'price'],
+      orderBy: 'creation desc',
+      start: 0,
+      pageLength: 15,
+    });
+    products.fetch();
+
+    const openModal = () => {
+      isModalOpen.value = true;
+    };
+    
+    const closeModal = () => {
+      isModalOpen.value = false;
+      products.fetch();
+    };
+
+    const toggleAllSelection = (event) => {
+      if (event.target.checked) {
+        selectedProducts.value = products.data.map(product => product.id);
+      } else {
+        selectedProducts.value = [];
+      }
+    };
+
+    return {
+      currentPage,
+      products,
+      isModalOpen,
+      openModal,
+      closeModal,
+      selectedProducts,
+      toggleAllSelection,
+      isDeleteModalOpen,
+      deleteSelectedProducts,
+      confirmDelete,
+      cancelDelete,
+    };
+  }
+}
+</script>

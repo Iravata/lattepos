@@ -9,15 +9,14 @@
     "copy-html-entry": "cp ../lattepos/public/frontend/index.html ../lattepos/www/frontend.html"
   },
   "dependencies": {
-    "feather-icons": "^4.29.2",
-    "frappe-ui": "^0.1.54",
-    "lucide-vue-next": "^0.378.0",
+    "frappe-ui": "^0.1.67",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
     "autoprefixer": "^10.4.2",
+    "daisyui": "^4.12.10",
     "postcss": "^8.4.5",
     "tailwindcss": "^3.4.3",
     "vite": "^5.2.11"

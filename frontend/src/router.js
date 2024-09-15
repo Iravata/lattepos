@@ -4,13 +4,13 @@ import { userResource } from '@/data/user'
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: () => import('@/pages/Home.vue'),
   },
   {
     name: 'Login',
-    path: '/account/login',
+    path: '/login',
     component: () => import('@/pages/Login.vue'),
   },
   {
@@ -26,7 +26,7 @@ const routes = [
 ]
 
 let router = createRouter({
-  history: createWebHistory('/frontend'),
+  history: createWebHistory(),
   routes,
 })
 

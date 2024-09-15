@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "format:PROD-{###}",
+ "autoname": "field:product_name",
  "creation": "2024-05-11 19:08:15.158252",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -28,7 +28,8 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Product Name",
-   "reqd": 1
+   "reqd": 1,
+   "unique": 1
   },
   {
    "fieldname": "column_break_xdev",
@@ -46,8 +47,7 @@
    "fieldname": "description",
    "fieldtype": "Small Text",
    "in_list_view": 1,
-   "label": "Description",
-   "reqd": 1
+   "label": "Description"
   },
   {
    "fieldname": "price",
@@ -87,11 +87,11 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-19 21:43:37.394100",
+ "modified": "2024-09-08 18:48:28.388358",
  "modified_by": "Administrator",
  "module": "Lattepos",
  "name": "Product",
- "naming_rule": "Expression",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {

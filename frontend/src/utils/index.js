@@ -1,11 +1,5 @@
 import {
-	Home,
-	PackageSearch,
-	Layers2
-  } from 'lucide-vue-next'
-
-import {
-	createListResource,
+	createResource,
   } from 'frappe-ui'
 
   
@@ -30,13 +24,10 @@ import {
 	];
   }
 
-  export let posCategory = createListResource({
-	doctype: 'Category',
-	fields: ['category_name', 'category_description'],
-	orderBy: 'creation desc',
-	start: 0,
-	pageLength: 20,
-	auto: true,
+  export const posCategory = createResource({
+	url: 'lattepos.lattepos.utils.get_category_list',
+	cache: ['PosCategory'],
+	auto: true
 })
 
 export function getCategories(posCategory) {
